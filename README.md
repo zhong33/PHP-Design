@@ -17,10 +17,10 @@ Bangdan()		// 榜单
 Login()			// 登录、注册
 Profile()		// 个人信息
 Shoucang()		// 个人收藏
-ChangeInfo()	      // 个人信息修改
+ChangeInfo()	        // 个人信息修改
 PlayMusic()		// 音乐播放
-GedanDetail()	      // 歌单详情
-AddMessage()	      // 增加留言
+GedanDetail()	        // 歌单详情
+AddMessage()	        // 增加留言
 ```
 
 ### 三、注意事项（待开发）
