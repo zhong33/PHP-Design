@@ -1,0 +1,107 @@
+/* 所有选择器都以sc-开头 */
+.sc-maxmaxbox {
+    width: 100%;
+    min-width: 1200px;
+    height: 1100px;
+}
+
+.sc-maxbox {
+    width: 982px;
+    height: 1050px;
+    min-width: 982px;
+    padding: 50px 40px 0 40px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-left: 1px solid #bfbfbf;
+    border-right: 1px solid #bfbfbf;
+}
+
+.sc-maxbox-p1 {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    font-family: "微软雅黑";
+    font-size: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #c23616;
+}
+
+.sc-gd-box {
+    position: relative;
+    display: inline-block;
+    width: 810px;
+    /* margin-left: 86px; */
+}
+.sc-maxbox-p1>img{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 2px;
+}
+.sc-maxbox-p1>a {
+    position: absolute;
+    font-family: "微软雅黑";
+    top: 10px;
+    right: 0;
+    color: #000;
+    font-size: 20px;
+}
+
+.sc-maxbox-p1>a:hover {
+    text-decoration: underline;
+}
+
+.sc-music-box {
+    width: 100%;
+    height: 571px;
+    /* background-color: #bfbfbf; */
+}
+
+.sc-music-box1 {
+    width: 339px;
+    height: 100%;
+    /* background-color: #c23616; */
+    border-top: 1px solid #bfbfbf;
+    /* border-left: 1px solid #bfbfbf; */
+    float: left;
+}
+
+.sc-music-box2 {
+    width: 640px;
+    height: 100%;
+    float: left;
+}
+
+.sc-music-box2>.bd-box2-3>.bd-music>span:nth-child(2) {
+    width: 280px;
+}
+
+.sc-music-box2>.bd-box2-3>.bd-music>span:nth-child(3) {
+    width: 140px;
+}
+
+.sc-music-box2>.bd-box2-3>.bd-music>span:nth-child(4) {
+    width: 140px;
+}
+
+.sc-music-img{
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #bfbfbf;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    margin: 25px 0 0 10px;
+    float: left;
+}
+
+.sc-music-img>a>img{
+    width: 150px;
+    height: 150px;
+}
+
+.sc-music-img>a>img:hover{
+    animation: b41 1s 1;
+    animation-fill-mode: forwards
+}

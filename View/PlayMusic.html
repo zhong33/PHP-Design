@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/music.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>在一起嘛好不好</title>
+</head>
+
+<body>
+    <div class="mc-maxmaxbox">
+        <div class="mc-header">
+            <a href="./index.php"><img src="../static/images/icon1.png" class="mc-header-img1"></a>
+            <a href="./index.php" class="mc-header-span1">音乐馆</a>
+            <?php
+                    if (isset($_COOKIE['user'])) {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Profile"><img src="'.$txpath.'" class="mc-header-img2"></a>
+                        <span class="mc-header-span" onclick="clearCookie()">退出</span>';
+                    }
+            ?>
+        </div>
+        <div class="mc-box1">
+            <div class="mc-box1-1">
+                <span class="mc-span1">
+                    <span class="mc-span3"></span>
+                    <span class="mc-span4"></span>
+                    <img src="<?php echo $MusicPath[3];?>" alt="">
+                </span>
+                <span class="mc-span2 mc-xz"></span>
+            </div>
+            <div class="mc-box1-2">
+                <p class="mc-gm"><?php echo $MusicPath[1];?></p>
+                <p><?php echo $MusicPath[2];?></p>
+                <div class="mc-gc">
+                    <?php echo $MusicPath[5];?>
+                </div>
+            </div>
+        </div>
+        <div class="mc-muscibox">
+            <audio src="<?php echo $MusicPath[6];?>" controls></audio>
+        </div>
+    </div>
+</body>
+
+</html>

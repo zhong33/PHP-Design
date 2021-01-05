@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/lunbo.css">
+    <link rel="stylesheet" href="../static/css/sign.css">
+    <link rel="stylesheet" href="../static/css/bangdan.css">
+    <link rel="stylesheet" href="../static/css/gedan.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>音乐馆-最·周杰伦</title>
+</head>
+<body>
+    <a href="#qwq"><img src="../static/images/upward.png" class="upward"></a>
+    <div class="signbox">
+        <div class="closebox" onclick="closewindow()"></div>
+        <p class="signp1">登陆|注册</p>
+        <div class="sign-method">
+            <a href="#" class="social"><i class="fab fa-qq"></i></a>
+            <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+            <a href="#" class="social"><i class="fab fa-weibo"></i></a>
+        </div>
+        <p class="signp2">选择以上方式登录或使用您的账号</p>
+        <form action="./index.php?a=Login" method="POST">
+            <p class="signp  signinput1"><input type="text" name="user" placeholder="账号" class="signinput"></p>
+            <p class="signp"><input type="password" name="password" placeholder="密码" class="signinput"></p>
+            <p class="signp3">
+                <input type="submit" name="login" value="登录">
+                <input type="submit" name="register" value="注册">
+            </p>
+        </form>
+    </div>
+    <header>
+        <div class="header2" id="qwq">
+            <ul>
+                <li><a href="./index.php" class="a a1">音乐馆</a></li>
+                <li><a href="./index.php?a=Gedan" class="a a2">歌单</a></li>
+                <li><a href="./index.php?a=Bangdan" class="a a2">排行榜</a></li>
+            </ul><div class="header1">
+                <form class="a form1" onsubmit="return search()">
+                    <p>
+                        <i class="fas fa-search fabb"></i>
+                        <input type="text" placeholder="搜索歌曲" class="sousuo1" id="search_input"  type="text">
+                    </p>
+                </form>
+                <?php
+                    if (!isset($_COOKIE['user'])) {
+                        echo '<div class="a a3" style="font-size: 20px;cursor: pointer;color: #000;" onclick="openwindow()">登录/注册</div>';
+                    } else {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Shoucang" class="a a4" style="font-size: 20px;">我的收藏</a>
+                        <div class="xx1">
+                            <a href="./index.php?a=Profile">
+                                <img src="'.$txpath.'" class="tx">
+                            </a>
+                            <span onclick="clearCookie()">退出</span>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </div>
+    </header>
+    <div class="gd-maxmaxbox">
+        <div class="gdd">
+            <div class="bd-box2" style="display: block; width: 100%; height: 1200px;border-left: 1px #ccc solid">
+                <div class="bd-box2-1" style="height: 340px;">
+                    <div class="gdd-1" style="background-image: url(<?php echo $GedanDetail['gedan'][3];?>)"></div>
+                    <p class="bd-box2-1-p1" style="margin-bottom: 5px; font-family: '楷体';"><?php echo $GedanDetail['gedan'][1];?></p>
+                    <p class="gdd-2"><img src="../static/images/nickname.png" class="gdd-img-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $GedanDetail['gedan'][2];?></p>
+                    <p class="bd-box2-1-p2" style="padding-right: 80px; line-height: 22px; margin: 0;height: 125px;">简介：<?php echo $GedanDetail['gedan'][4];?></p>
+                    <div class="bd-botton">
+                        <img src="../static/images/play.png" class="bd-img">
+                        <span>播放</span>
+                    </div>
+                    <div class="bd-botton">
+                        <img src="../static/images/like.png" class="bd-img">
+                        <span>收藏</span>
+                    </div>
+                    <div class="bd-botton">
+                        <img src="../static/images/download.png" class="bd-img">
+                        <span>下载</span>
+                    </div>
+                    <div class="bd-botton">
+                        <img src="../static/images/share.png" class="bd-img">
+                        <span>分享</span>
+                    </div>
+                    <p class="bd-p1" style="position: relative;">
+                        <span onclick="openGedan()" style="cursor: pointer;">全部歌曲&nbsp;&nbsp;<span style="color: gray;"><?php echo count($GedanDetail['music']);?></span></span>
+                        <div class="gdd-Btn" onclick="openMessage()">
+                            <img src="../static/images/message.png" class="bd-img">
+                            <span>评论</span>
+                        </div>
+                    </p>
+                </div>
+                <div class="bd-box2-3" style="display: block;">
+                    <ul>
+                        <li style="width: 430px;">歌曲</li>
+                        <li style="width: 300px;">歌手</li>
+                        <li>时长</li>
+                    </ul>
+                    <?php
+                        for ($i = 0 ; $i < count($GedanDetail['music']) ; $i++){
+                            $color = $i < 3 ? 'style="color: #c23616;"' : null;
+                            $style = $i % 2 == 1 ? 'style="background-color: #f9f9f9;"' : null;
+                            echo '
+                    <div class="bd-music" '.$style.'>
+                        <span '.$color.'>'.($i+1).'</span>
+                        <span><a href="./index.php?a=PlayMusic&id='.$GedanDetail['music'][$i][0].'">'.$GedanDetail['music'][$i][1].'</a></span>
+                        <span>'.$GedanDetail['music'][$i][2].'</span>
+                        <span>'.$GedanDetail['music'][$i][4].'</span>
+                    </div>
+                            ';
+                        }
+                    ?>
+                </div>
+                <div class="gdd-message" style="display: none;">
+                    <form action="./index.php?a=AddMessage&id=<?php echo $GedanDetail['gedan'][0];?>" method="POST">
+                        <p class="gdd-message-p1">来说点什么吧...</p>
+                        <textarea name="message" id="text"  rows="5" placeholder="期待你的评论！"></textarea>
+                        <p class="gdd-message-p2"><input type="submit" class="gdd-sub" value="提交"></p>
+                    </form>
+                    <?php
+                        for ($i = 0 ; $i < count($GedanDetail['message']) ; $i++){
+                            $mysql = new mysql();
+                            $UserInfo = $mysql->getUserInfoById($GedanDetail['message'][$i][1]);
+                            echo '
+                        <div class="message_box">
+                            <div class="message_tx"><img src="'.$UserInfo[4].'" alt="" class="message_tx"></div>
+                            <div>
+                                <p class="message_time">'.date('Y-m-d h:i',$GedanDetail['message'][$i][3]).'</p>
+                                <p class="message_name">'.$UserInfo[5].'</p>
+                                <p class="message_txt">'.$GedanDetail['message'][$i][2].'</p>
+                                <p class="message_pimg">
+                                    <img src="../static/images/点赞.png" class="message_img">
+                                    <img src="../static/images/message_unread.png" class="message_img">
+                                </p>
+                            </div>
+                        </div> 
+                            ';
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>版权所有©2021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx762&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:201912341234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="mailto:tobatu762@qq.com">与我联系</a></p>
+    </footer>
+</body>
+</html>

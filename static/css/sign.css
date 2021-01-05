@@ -1,0 +1,133 @@
+.signbox {
+    position: fixed;
+    top: 250px;
+    width: 600px;
+    height: 400px;
+    left: calc((100% - 600px)/2);
+    background-color: #fff;
+    border-radius: 20px;
+    z-index: 1000;
+    display: none;
+    border: 1px solid #bfbfbf;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+.closebox {
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 30px;
+    right: 30px;
+    font-size: 50px;
+    border-radius: 50%;
+    border: 2px gray solid;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.closebox::before {
+    display: inline-block;
+    content: "";
+    position: relative;
+    top: -18px;
+    left: -20px;
+    width: 50px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #000;
+    transform: translate(50%, 50%) rotate(45deg);
+}
+
+.closebox::after {
+    display: inline-block;
+    content: "";
+    position: relative;
+    top: -65.5px;
+    left: 28px;
+    width: 50px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #000;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.signp1 {
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.signp2 {
+    text-align: center;
+    font-family: "微软雅黑";
+    margin-bottom: 10px;
+}
+
+.signp {
+    text-align: center;
+}
+
+.signinput {
+    width: 300px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+    font-size: 30px;
+    text-indent: 10px;
+}
+
+.signinput:focus {
+    border-bottom: 1px solid #000;
+}
+
+.sign-method {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+}
+
+.sign-method>a {
+    border: 1px solid #ddd;
+    color: rgb(39, 38, 38);
+    text-decoration: none;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+
+.sign-method>a:hover{
+    border: 1px solid #000;
+}
+
+.signp3{
+    width: 300px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signp3>input{
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 25px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 80ms ease-in;
+    background-color: rgba(44, 62, 80,0.8);
+    color: #fff;
+}
+
+.signp3>input:active {
+    transform: scale(0.95);
+}

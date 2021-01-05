@@ -1,0 +1,112 @@
+#box{
+    position: relative;
+}
+#box {
+    margin-top: 5px;
+    width: 1082px;
+    height: 432px;
+}
+#box>div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#box>div>a>img{
+    position: absolute;
+    width: 100%;
+    height: 432px;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+#box>div>a{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* opacity: 0; */
+    transition: all 0.4s ease-in-out;
+}
+#box>.btn{
+    width: 40px;
+    height: 70px;
+    background: rgba(1, 1, 1);
+    top: 50%;
+    transform: translateY(-50%);
+    left: -5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    z-index: 100;
+    border-radius: 7.5px;
+}
+#box>.btn div{
+    width: 20px;
+    height: 20px;
+    border-top: 5px solid rgba(256, 256,256);
+    border-left: 5px solid rgba(256, 256,256);
+    transform:translateX(5px) rotate(-45deg);
+}
+#box>.btn:nth-of-type(2){
+    left:calc( 105% - 40px);
+}
+#box>.btn:nth-of-type(2) div{
+    transform:translateX(-5px) rotate(135deg);
+}
+#box .btn:hover{
+    opacity: 0.7;
+    transition: all 0.25s;
+    cursor: pointer;
+}
+.small-box{
+    transition: opacity 0.5s ;
+}
+/* 圆点 */
+#box>#dot{
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top: calc(95% - 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+#box>#dot>span{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgb(1, 1, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s;
+    cursor: pointer;
+    margin: 0 5px;
+    opacity: 0.5;
+}
+#box>#dot>span>span{
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    opacity: 0;
+}
+
+.tuijian{
+    width: 100%;
+    min-width: 1200px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(44, 62, 80,0.8);
+}
+
+.imga{
+    display: inline-block;
+    width: 1082px;
+    height: 420px;
+}

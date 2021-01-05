@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/sign.css">
+    <link rel="stylesheet" href="../static/css/gedan.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>音乐馆-歌单</title>
+</head>
+
+<body>
+    <a href="#qwq"><img src="../static/images/upward.png" class="upward"></a>
+    <div class="signbox">
+        <div class="closebox" onclick="closewindow()"></div>
+        <p class="signp1">登陆|注册</p>
+        <div class="sign-method">
+            <a href="#" class="social"><i class="fab fa-qq"></i></a>
+            <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+            <a href="#" class="social"><i class="fab fa-weibo"></i></a>
+        </div>
+        <p class="signp2">选择以上方式登录或使用您的账号</p>
+        <form action="./index.php?a=Login" method="POST">
+            <p class="signp  signinput1"><input type="text" name="user" placeholder="账号" class="signinput"></p>
+            <p class="signp"><input type="password" name="password" placeholder="密码" class="signinput"></p>
+            <p class="signp3">
+                <input type="submit" name="login" value="登录">
+                <input type="submit" name="register" value="注册">
+            </p>
+        </form>
+    </div>
+    <header>
+        <div class="header2" id="qwq">
+            <ul>
+                <li><a href="./index.php" class="a a1">音乐馆</a></li>
+                <li><a href="./index.php?a=Gedan" class="a a2">歌单</a></li>
+                <li><a href="./index.php?a=Bangdan" class="a a2">排行榜</a></li>
+            </ul><div class="header1">
+                <form class="a form1" onsubmit="return search()">
+                    <p>
+                        <i class="fas fa-search fabb"></i>
+                        <input type="text" placeholder="搜索歌曲" class="sousuo1" id="search_input"  type="text">
+                    </p>
+                </form>
+                <?php
+                    if (!isset($_COOKIE['user'])) {
+                        echo '<div class="a a3" style="font-size: 20px;cursor: pointer;color: #000;" onclick="openwindow()">登录/注册</div>';
+                    } else {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Shoucang" class="a a4" style="font-size: 20px;">我的收藏</a>
+                        <div class="xx1">
+                            <a href="./index.php?a=Profile">
+                                <img src="'.$txpath.'" class="tx">
+                            </a>
+                            <span onclick="clearCookie()">退出</span>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </div>
+    </header>
+    <div class="gd-maxmaxbox">
+        <div class="gd-maxbox">
+            <p class="gd-maxbox-p"><img src="../static/images/sub_account.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;官方歌单</p>
+            <div class="gd-box">
+                <?php
+                    for ($i = 0 ; $i < count($GFgedan) ; $i++)
+                    echo '
+                <div class="gd-box-1">
+                    <a href="./index.php?a=GedanDetail&id='.$GFgedan[$i]->id.'">
+                    <div class="gd-box-2">
+                        <img src="'.$GFgedan[$i]->imgPath.'" class="gd-img1">
+                        <img src="../static/images/play1.png" class="gd-img2">
+                    </div>
+                    </a>
+                    <p><a href="./index.php?a=GedanDetail&id='.$GFgedan[$i]->id.'">'.$GFgedan[$i]->name.'</a></p>
+                    <p>播放量：'.$GFgedan[$i]->hits.'</p>
+                </div>';?>
+            </div>
+            <?php
+                echo '
+            <p class="gd-box-p1">
+            <a href="./index.php?a=Gedan&gpage='.($gpage-1).'&ypage='.$ypage.'" class="gd-anniu"><</a>
+            <span class="gd-yema">'.$gpage.'</span>
+            <a href="./index.php?a=Gedan&gpage='.($gpage+1).'&ypage='.$ypage.'" class="gd-anniu">></a>
+            </p>';
+            ?>
+            <p class="gd-maxbox-p"><img src="../static/images/partner.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户歌单</p>
+            <div class="gd-box">
+                <?php
+                    for ($i = 0 ; $i < count($YHgedan) ; $i++)
+                        echo '
+                <div class="gd-box-1">
+                    <a href="./index.php?a=GedanDetail&id='.$YHgedan[$i]->id.'">
+                    <div class="gd-box-2">
+                        <img src="'.$YHgedan[$i]->imgPath.'" class="gd-img1">
+                        <img src="../static/images/play1.png" class="gd-img2">
+                    </div>
+                    </a>
+                    <p><a href="./index.php?a=GedanDetail&id='.$YHgedan[$i]->id.'">'.$YHgedan[$i]->name.'</a></p>
+                    <p>By&nbsp;&nbsp;'.$YHgedan[$i]->author.'</p>
+                    <p>播放量：'.$YHgedan[$i]->hits.'</p>
+                </div>';
+                ?>
+            </div>
+            <?php
+                echo '
+            <p class="gd-box-p2">
+            <a href="./index.php?a=Gedan&gpage='.$gpage.'&ypage='.($ypage-1).'" class="gd-anniu"><</a>
+            <span class="gd-yema">'.$ypage.'</span>
+            <a href="./index.php?a=Gedan&gpage='.$gpage.'&ypage='.($ypage+1).'" class="gd-anniu">></a>
+            </p>';
+            ?>
+        </div>
+    </div>
+    <footer>
+        <p>版权所有©2021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx762&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:201912341234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="mailto:tobatu762@qq.com">与我联系</a></p>
+    </footer>
+</body>
+
+</html>

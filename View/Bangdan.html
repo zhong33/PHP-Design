@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/sign.css">
+    <link rel="stylesheet" href="../static/css/bangdan.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>音乐馆-排行榜</title>
+</head>
+<body>
+    <a href="#qwq"><img src="../static/images/upward.png" class="upward"></a>
+    <div class="signbox">
+        <div class="closebox" onclick="closewindow()"></div>
+        <p class="signp1">登陆|注册</p>
+        <div class="sign-method">
+            <a href="#" class="social"><i class="fab fa-qq"></i></a>
+            <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+            <a href="#" class="social"><i class="fab fa-weibo"></i></a>
+        </div>
+        <p class="signp2">选择以上方式登录或使用您的账号</p>
+        <form action="./index.php?a=Login" method="POST">
+            <p class="signp  signinput1"><input type="text" name="user" placeholder="账号" class="signinput"></p>
+            <p class="signp"><input type="password" name="password" placeholder="密码" class="signinput"></p>
+            <p class="signp3">
+                <input type="submit" name="login" value="登录">
+                <input type="submit" name="register" value="注册">
+            </p>
+        </form>
+    </div>
+    <header>
+        <div class="header2" id="qwq">
+            <ul>
+                <li><a href="./index.php" class="a a1">音乐馆</a></li>
+                <li><a href="./index.php?a=Gedan" class="a a2">歌单</a></li>
+                <li><a href="./index.php?a=Bangdan" class="a a2">排行榜</a></li>
+            </ul><div class="header1">
+                <form class="a form1" onsubmit="return search()">
+                    <p>
+                        <i class="fas fa-search fabb"></i>
+                        <input type="text" placeholder="搜索歌曲" class="sousuo1" id="search_input"  type="text">
+                    </p>
+                </form>
+                <?php
+                    if (!isset($_COOKIE['user'])) {
+                        echo '<div class="a a3" style="font-size: 20px;cursor: pointer;color: #000;" onclick="openwindow()">登录/注册</div>';
+                    } else {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Shoucang" class="a a4" style="font-size: 20px;">我的收藏</a>
+                        <div class="xx1">
+                            <a href="./index.php?a=Profile">
+                                <img src="'.$txpath.'" class="tx">
+                            </a>
+                            <span onclick="clearCookie()">退出</span>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </div>
+    </header>
+    <div class="bdbdbd">
+    <div class="bd-maxbox">
+        <div class="bd-box1">
+        <?php
+        $color = array('burlywood','rgb(69, 176, 185)','rgb(94, 146, 221)','rgb(196, 73, 104)','#0abde3','#feca57','#ff6b6b','#48dbfb','#55efc4','#fab1a0','#6c5ce7','#d63031','#fdcb6e');
+        for ($i = 0 ; $i < count($bangdan) ; $i++) {
+            if($i == 0 ){
+                $default = 'style="background-color: #e1e1e1;"';
+                echo '<p class="bd-fenlei">经典榜</p>';
+            }
+            if ($i == 4){
+                echo '<p class="bd-fenlei">地区榜</p>';
+            }
+            if ($i == 8){
+                echo '<p class="bd-fenlei">特色榜</p>';
+            }
+            echo '
+            <div class="bd-box1-min" onclick="selectbd('.$i.')"'.$default.'>
+                <div class="bd-box1-min-wz" style="background-color: '.$color[$i].';">'.mb_substr($bangdan[$i]->name,0,1,'utf-8').'</div>
+                <p>'.$bangdan[$i]->name.'</p>
+            </div>
+            ';
+            $default = null;
+        }
+        ?>
+        </div>
+        <?php
+        for ($i = 0 ; $i < count($bangdan) ; $i++) {
+            $style = $i==0 ? 'style="display:block";' : null;
+            echo '
+        <div class="bd-box2" '.$style.'>
+            <div class="bd-box2-1">
+                <div class="bd-box2-2" style="background-color: '.$color[$i].';">'.mb_substr($bangdan[$i]->name,0,1,'utf-8').'</div>
+                <p class="bd-box2-1-p1">'.$bangdan[$i]->name.'</p>
+                <p class="bd-box2-1-p2">更新于：'.date("Y年m月d日",time()) .'</p>
+                <div class="bd-botton" style="background-color: '.$color[$i].';">
+                    <img src="../static/images/play.png" class="bd-img">
+                    <span>播放</span>
+                </div>
+                <div class="bd-botton">
+                    <img src="../static/images/like.png" class="bd-img">
+                    <span>收藏</span>
+                </div>
+                <div class="bd-botton">
+                    <img src="../static/images/download.png" class="bd-img">
+                    <span>下载</span>
+                </div>
+                <div class="bd-botton">
+                    <img src="../static/images/share.png" class="bd-img">
+                    <span>分享</span>
+                </div>
+                <p class="bd-p1"><span>全部歌曲</span><span><i>'.count($bangdan[$i]->music).'首</i></span></p>
+            </div>
+            <div class="bd-box2-3">
+                <ul>
+                    <li>歌曲</li>
+                    <li>歌手</li>
+                    <li>时长</li>
+                </ul>';
+            for($j = 0 ; $j < count($bangdan[$i]->music) ; $j++){
+                $color1 = $j < 3 ? '#c23616' : null;
+                $color2 = $j%2 == 1 ? '#f9f9f9' : null;
+                echo '
+                <div class="bd-music" style="background-color: '.$color2.';">
+                    <span style="color: '.$color1.';">'.($j+1).'</span>
+                    <span><a href="./index.php?a=PlayMusic&id='.$bangdan[$i]->music[$j]->id.'">'.$bangdan[$i]->music[$j]->name.'</a></span>
+                    <span>'.$bangdan[$i]->music[$j]->author.'</span>
+                    <span>'.$bangdan[$i]->music[$j]->time.'</span>
+                </div>
+                ';
+            }
+        echo '</div></div>';
+        }
+        ?>
+    </div>
+    </div>
+    <footer>
+        <p>版权所有©2021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx762&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:201912341234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="mailto:tobatu762@qq.com">与我联系</a></p>
+    </footer>
+</body>
+</html>

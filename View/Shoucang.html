@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/sign.css">
+    <link rel="stylesheet" href="../static/css/bangdan.css">
+    <link rel="stylesheet" href="../static/css/shoucang.css">
+    <link rel="stylesheet" href="../static/css/gedan.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>音乐馆-我的收藏</title>
+</head>
+
+<body>
+    <a href="#qwq"><img src="../static/images/upward.png" class="upward"></a>
+    <div class="signbox">
+        <div class="closebox" onclick="closewindow()"></div>
+        <p class="signp1">登陆|注册</p>
+        <div class="sign-method">
+            <a href="#" class="social"><i class="fab fa-qq"></i></a>
+            <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+            <a href="#" class="social"><i class="fab fa-weibo"></i></a>
+        </div>
+        <p class="signp2">选择以上方式登录或使用您的账号</p>
+        <form action="./index.php?a=Login" method="POST">
+            <p class="signp  signinput1"><input type="text" name="user" placeholder="账号" class="signinput"></p>
+            <p class="signp"><input type="password" name="password" placeholder="密码" class="signinput"></p>
+            <p class="signp3">
+                <input type="submit" name="login" value="登录">
+                <input type="submit" name="register" value="注册">
+            </p>
+        </form>
+    </div>
+    <header>
+        <div class="header2" id="qwq">
+            <ul>
+                <li><a href="./index.php" class="a a1">音乐馆</a></li>
+                <li><a href="./index.php?a=Gedan" class="a a2">歌单</a></li>
+                <li><a href="./index.php?a=Bangdan" class="a a2">排行榜</a></li>
+            </ul><div class="header1">
+                <form class="a form1" onsubmit="return search()">
+                    <p>
+                        <i class="fas fa-search fabb"></i>
+                        <input type="text" placeholder="搜索歌曲" class="sousuo1" id="search_input"  type="text">
+                    </p>
+                </form>
+                <?php
+                    if (!isset($_COOKIE['user'])) {
+                        echo '<div class="a a3" style="font-size: 20px;cursor: pointer;color: #000;" onclick="openwindow()">登录/注册</div>';
+                    } else {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Shoucang" class="a a4" style="font-size: 20px;">我的收藏</a>
+                        <div class="xx1">
+                            <a href="./index.php?a=Profile">
+                                <img src="'.$txpath.'" class="tx">
+                            </a>
+                            <span onclick="clearCookie()">退出</span>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </div>
+    </header>
+    <div class="sc-maxmaxbox">
+        <div class="sc-maxbox">
+            <p class="sc-maxbox-p1"><img src="../static/images/musiclist.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;歌单</p>
+            <div class="gd-box sc-gd-box">
+                <div class="gd-box-1">
+                    <a href="#">
+                    <div class="gd-box-2">
+                        <img src="../static/images/gedan2.jpg" class="gd-img1">
+                        <img src="../static/images/play1.png" class="gd-img2">
+                    </div>
+                    </a>
+                    <p><a href="">最·周杰伦</a></p>
+                    <p>播放量：1883万</p>
+                </div>
+                <div class="gd-box-1">
+                    <div class="gd-box-2">
+                        <img src="../static/images/gedan8.jpg" class="gd-img1">
+                        <img src="../static/images/play1.png" class="gd-img2">
+                    </div>
+                    <p><a href="">独立内核</a></p>
+                    <p>播放量：188万</p>
+                </div>
+                <div class="gd-box-1" style="margin-right: 0;">
+                    <div class="gd-box-2">
+                        <img src="../static/images/gedan6.jpg" class="gd-img1">
+                        <img src="../static/images/play1.png" class="gd-img2">
+                    </div>
+                    <p><a href="">音乐采样教室</a></p>
+                    <p>播放量：103万</p>
+                </div>
+            </div>
+            <p class="sc-maxbox-p1"><img src="../static/images/singing.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;音乐</p>
+            <div class="sc-music-box">
+                <div class="sc-music-box1">
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/yours.jpg"></a>
+                    </div>
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/xtdf.jpg"></a>
+                    </div>
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/bql.jpg"></a>
+                    </div>
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/bekind.jpg"></a>
+                    </div>
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/learn.jpg"></a>
+                    </div>
+                    <div class="sc-music-img">
+                        <a href="#"><img src="../static/images/gone.jpg"></a>
+                    </div>
+                </div>
+                <div class="sc-music-box2" style="border-top: 1px solid #bfbfbf;border-left: 1px solid #bfbfbf;">
+                    <div class="bd-box2-3" style="height: 571px;">
+                        <ul>
+                            <li style="width: 280px;">歌曲</li>
+                            <li style="width: 150px;">歌手</li>
+                            <li style="width: 150px;">时长</li>
+                        </ul>
+                        <div class="bd-music">
+                            <span style="color: #c23616;">1</span>
+                            <span><a href="">Mojito</a></span>
+                            <span>周杰伦</span>
+                            <span>03:05</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span style="color: #c23616;">2</span>
+                            <span><a href="">微微</a></span>
+                            <span>孙子涵</span>
+                            <span>03:01</span>
+                        </div>
+                        <div class="bd-music">
+                            <span style="color: #c23616;">3</span>
+                            <span><a href="">无价之姐</a></span>
+                            <span>李宇春</span>
+                            <span>03:04</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span>4</span>
+                            <span><a href="">Sour Candy</a></span>
+                            <span>Lady Gaga</span>
+                            <span>02:37</span>
+                        </div>
+                        <div class="bd-music">
+                            <span>5</span>
+                            <span><a href="">想见你想见你想见你</a></span>
+                            <span>王俊凯</span>
+                            <span>04:04</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span>6</span>
+                            <span><a href="">5452830</a></span>
+                            <span>火箭少女101</span>
+                            <span>04:25</span>
+                        </div>
+                        <div class="bd-music">
+                            <span>7</span>
+                            <span><a href="">圆舞曲</a></span>
+                            <span>王源</span>
+                            <span>04:32</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span>8</span>
+                            <span><a href="">怪女孩 Miss Freak</a></span>
+                            <span>徐艺洋 / 陈珂</span>
+                            <span>03:48</span>
+                        </div>
+                        <div class="bd-music">
+                            <span>9</span>
+                            <span><a href="">探清水河</a></span>
+                            <span>张云雷</span>
+                            <span>05:01</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span>10</span>
+                            <span><a href="">离群（纯享版）</a></span>
+                            <span>王艺瑾 / 陈卓璇</span>
+                            <span>04:23</span>
+                        </div>
+                        <div class="bd-music">
+                            <span>11</span>
+                            <span><a href="">一生有你</a></span>
+                            <span>水木年华</span>
+                            <span>04:18</span>
+                        </div>
+                        <div class="bd-music" style="background-color: #f9f9f9;">
+                            <span>12</span>
+                            <span><a href="">多喜欢你</a></span>
+                            <span>阿稚</span>
+                            <span>03:57</span>
+                        </div>
+                        <div class="bd-music">
+                            <span>13</span>
+                            <span><a href="">火苗</a></span>
+                            <span>格格</span>
+                            <span>03:33</span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>版权所有©2021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx762&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:201912341234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="mailto:tobatu762@qq.com">与我联系</a></p>
+    </footer>
+</body>
+
+</html>

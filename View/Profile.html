@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/sign.css">
+    <link rel="stylesheet" href="../static/css/message.css">
+    <link rel="icon" href="../static/images/icon.png" type="image/x-icon" />
+    <script src="../static/js/search.js"></script>
+    <title>音乐馆-我的信息</title>
+</head>
+<body>
+    <a href="#qwq"><img src="../static/images/upward.png" class="upward"></a>
+    <div class="signbox">
+        <div class="closebox" onclick="closewindow()"></div>
+        <p class="signp1">登陆|注册</p>
+        <div class="sign-method">
+            <a href="#" class="social"><i class="fab fa-qq"></i></a>
+            <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+            <a href="#" class="social"><i class="fab fa-weibo"></i></a>
+        </div>
+        <p class="signp2">选择以上方式登录或使用您的账号</p>
+        <form action="./index.php?a=Login" method="POST">
+            <p class="signp  signinput1"><input type="text" name="user" placeholder="账号" class="signinput"></p>
+            <p class="signp"><input type="password" name="password" placeholder="密码" class="signinput"></p>
+            <p class="signp3">
+                <input type="submit" name="login" value="登录">
+                <input type="submit" name="register" value="注册">
+            </p>
+        </form>
+    </div>
+    <header>
+        <div class="header2" id="qwq">
+            <ul>
+                <li><a href="./index.php" class="a a1">音乐馆</a></li>
+                <li><a href="./index.php?a=Gedan" class="a a2">歌单</a></li>
+                <li><a href="./index.php?a=Bangdan" class="a a2">排行榜</a></li>
+            </ul><div class="header1">
+                <form class="a form1" onsubmit="return search()">
+                    <p>
+                        <i class="fas fa-search fabb"></i>
+                        <input type="text" placeholder="搜索歌曲" class="sousuo1" id="search_input"  type="text">
+                    </p>
+                </form>
+                <?php
+                    if (!isset($_COOKIE['user'])) {
+                        echo '<div class="a a3" style="font-size: 20px;cursor: pointer;color: #000;" onclick="openwindow()">登录/注册</div>';
+                    } else {
+                        $mysql = new mysql();
+                        $txpath = $mysql->getTxpath(decrypt($_COOKIE['user']));
+                        echo '
+                        <a href="./index.php?a=Shoucang" class="a a4" style="font-size: 20px;">我的收藏</a>
+                        <div class="xx1">
+                            <a href="./index.php?a=Profile">
+                                <img src="'.$txpath.'" class="tx">
+                            </a>
+                            <span onclick="clearCookie()">退出</span>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </div>
+    </header>
+    <div class="ms-setting-box">
+        <div class="closebox" onclick="closeMessagebox()"></div>
+        <span>信息更正</span>
+        <div class="ms-box-tx">
+            <img src="<?php echo $userInfo->txpath;?>">
+            <p><img src="../static/images/upload.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传头像</p>
+        </div>
+        <img src="../static/images/setting.png">
+        <form action="./index.php?a=ChangeInfo" method="POST" enctype="multipart/form-data">
+            <p><span>真实姓名：</span><input type="text" name="name" value="<?php echo $userInfo->name;?>" pattern="^[\u4e00-\u9fa5]{0,}$"></p>
+            <p><span>昵称：</span><input type="text" name="nickname" value="<?php echo $userInfo->nickname;?>"></p>
+            <p><span>手机号：</span><input type="tel" name="phone" pattern="^\d{11}$" value="<?php echo $userInfo->phone;?>"></p>
+            <p><span>邮箱：</span><input type="email" name="email" value="<?php echo $userInfo->email;?>"></p>
+            <p><span>学校/单位：</span><input type="text" name="unit" value="<?php echo $userInfo->unit;?>"></p>
+            <p><span>学号：</span><input type="text" name="xuehao" value="<?php echo $userInfo->xuehao;?>"></p>
+            <p><span>专业：</span><input type="text" name="major" value="<?php echo $userInfo->major;?>"></p>
+            <p><span>个性签名：</span><input type="text" name="gxqm" value="<?php echo $userInfo->gxqm;?>"></p>
+            <p><input type="submit" name="submit"></p>
+        </form>
+    </div>
+    <div class="ms-maxmaxbox">
+        <div class="ms-maxbox">
+            <div class="ms-bg-profile">
+                <img src="<?php echo $txpath;?>">
+            </div>
+            <div class="ms-box-1">
+                <p class="ms-maxbox-p1"><img src="../static/images/user.png"><span>我的信息</span><span onclick="openMessagebox()">修改</span></p>
+                <p class="ms-maxbox-p2"><span>真实姓名</span>：<span><?php echo $userInfo->name;?></span></p>
+                <p class="ms-maxbox-p2"><span>昵称</span>：<span><?php echo $userInfo->nickname;?></span></p>
+                <p class="ms-maxbox-p2"><span>手机号</span>：<span><?php echo $userInfo->phone;?></span></p>
+                <p class="ms-maxbox-p2"><span>邮箱</span>：<span><?php echo $userInfo->email;?></span></p>
+                <p class="ms-maxbox-p2"><span>学校/单位</span>：<span><?php echo $userInfo->unit;?></span></p>
+                <p class="ms-maxbox-p2"><span>学号</span>：<span><?php echo $userInfo->xuehao;?></span></p>
+                <p class="ms-maxbox-p2"><span>专业</span>：<span><?php echo $userInfo->major;?></span></p>
+                <p class="ms-maxbox-p2"><span>个性签名</span>：<span><?php echo $userInfo->gxqm;?></span></p>
+                <p class="ms-maxbox-p2"><span>注册时长</span>：<span><?php echo (date('d',time()-$userInfo->zcsj)+1-1)."天";?></span></p>
+                <p class="ms-maxbox-p1"><img src="../static/images/customer_service.png"><span>音乐足迹</span></p>
+                <p class="ms-maxbox-p2"><span>播放最多歌曲</span>：<span>一生有你</span></p>
+                <p class="ms-maxbox-p2"><span>播放最多歌手</span>：<span>周杰伦</span></p>
+                <p class="ms-maxbox-p2"><span>原创歌单</span>：<span>3</span></p>
+                <p class="ms-maxbox-p2"><span>原创音乐</span>：<span>0</span></p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>版权所有©2021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx762&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:201912341234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="mailto:tobatu762@qq.com">与我联系</a></p>
+    </footer>
+</body>
+</html>
