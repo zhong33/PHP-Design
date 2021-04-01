@@ -154,6 +154,6 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'test', '123456', 'e10adc3949ba59abbe56e057f20f883e', '../static/images/tx.png', '天涯', '15112341234', '江西师范大学', '201912341234', '网络工程', '我就是我，不一样的烟火！', '1509617232', '，马冬梅', 'tobatu762@qq.com');
+INSERT INTO `user` VALUES ('1', 'test', '123456', 'e10adc3949ba59abbe56e057f20f883e', '../static/images/tx.png', '天涯', '15112341234', '江西师范大学', '201912341234', '网络工程', '我就是我，不一样的烟火！', '1509617232', '，马冬梅', '');
 INSERT INTO `user` VALUES ('10', 'qwe', 'qweqwe', 'efe6398127928f1b2e9ef3207fb82663', '../static/images/user.png', '', '', '', '', '', '', '1609677232', '', '');
 INSERT INTO `user` VALUES ('999', '匿名用户', '', '123', '../static/images/user.png', '匿名用户', '', '', '', '', '', null, '', '');
